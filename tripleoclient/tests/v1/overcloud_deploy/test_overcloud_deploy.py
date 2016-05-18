@@ -66,7 +66,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                 '_deploy_postconfig')
     @mock.patch('tripleoclient.utils.create_tempest_deployer_input',
                 autospec=True)
-    @mock.patch('tripleoclient.utils.generate_overcloud_passwords')
+    @mock.patch('tripleo_common.utils.passwords.generate_overcloud_passwords')
     @mock.patch('tripleoclient.utils.create_overcloudrc')
     @mock.patch('os_cloud_config.keystone.setup_endpoints', autospec=True)
     @mock.patch('time.sleep', return_value=None)
@@ -219,7 +219,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                 '_create_parameters_env')
     @mock.patch('tripleoclient.utils.create_tempest_deployer_input',
                 autospec=True)
-    @mock.patch('tripleoclient.utils.generate_overcloud_passwords')
+    @mock.patch('tripleo_common.utils.passwords.generate_overcloud_passwords')
     @mock.patch('tripleoclient.utils.create_overcloudrc')
     @mock.patch('os_cloud_config.utils.clients.get_nova_bm_client',
                 autospec=True)
@@ -391,7 +391,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                 '_deploy_postconfig')
     @mock.patch('tripleoclient.utils.create_tempest_deployer_input',
                 autospec=True)
-    @mock.patch('tripleoclient.utils.generate_overcloud_passwords')
+    @mock.patch('tripleo_common.utils.passwords.generate_overcloud_passwords')
     @mock.patch('tripleoclient.utils.create_overcloudrc')
     @mock.patch('os_cloud_config.keystone.setup_endpoints', autospec=True)
     @mock.patch('time.sleep', return_value=None)
@@ -628,7 +628,7 @@ class TestDeployOvercloud(fakes.TestDeployOvercloud):
                 '_deploy_postconfig')
     @mock.patch('tripleoclient.utils.create_tempest_deployer_input',
                 autospec=True)
-    @mock.patch('tripleoclient.utils.generate_overcloud_passwords')
+    @mock.patch('tripleo_common.utils.passwords.generate_overcloud_passwords')
     @mock.patch('tripleoclient.utils.create_overcloudrc')
     @mock.patch('os_cloud_config.keystone.setup_endpoints', autospec=True)
     @mock.patch('time.sleep', return_value=None)

@@ -35,64 +35,6 @@ from six.moves import urllib
 
 from tripleoclient import exceptions
 
-_MIN_PASSWORD_SIZE = 25
-_PASSWORD_NAMES = (
-    "OVERCLOUD_ADMIN_PASSWORD",
-    "OVERCLOUD_ADMIN_TOKEN",
-    "OVERCLOUD_AODH_PASSWORD",
-    "OVERCLOUD_CEILOMETER_PASSWORD",
-    "OVERCLOUD_CEILOMETER_SECRET",
-    "OVERCLOUD_CINDER_PASSWORD",
-    "OVERCLOUD_DEMO_PASSWORD",
-    "OVERCLOUD_GLANCE_PASSWORD",
-    "OVERCLOUD_GNOCCHI_PASSWORD",
-    "OVERCLOUD_HAPROXY_STATS_PASSWORD",
-    "OVERCLOUD_HEAT_PASSWORD",
-    "OVERCLOUD_HEAT_STACK_DOMAIN_PASSWORD",
-    "OVERCLOUD_NEUTRON_PASSWORD",
-    "OVERCLOUD_NOVA_PASSWORD",
-    "OVERCLOUD_RABBITMQ_PASSWORD",
-    "OVERCLOUD_REDIS_PASSWORD",
-    "OVERCLOUD_SAHARA_PASSWORD",
-    "OVERCLOUD_SWIFT_HASH",
-    "OVERCLOUD_SWIFT_PASSWORD",
-    "OVERCLOUD_TROVE_PASSWORD",
-    "NEUTRON_METADATA_PROXY_SHARED_SECRET"
-)
-
-
-def generate_overcloud_passwords(output_file="tripleo-overcloud-passwords",
-                                 create_password_file=False):
-    """Create the passwords needed for the overcloud
-
-    This will create the set of passwords required by the overcloud, store
-    them in the output file path and return a dictionary of passwords. If the
-    file already exists the existing passwords will be returned instead,
-    """
-
-    log = logging.getLogger(__name__ + ".generate_overcloud_passwords")
-
-    log.debug("Using password file: {0}".format(os.path.abspath(output_file)))
-
-    passwords = {}
-    if os.path.isfile(output_file):
-        with open(output_file) as f:
-            passwords = dict(line.split('=') for line in f.read().splitlines())
-    elif not create_password_file:
-        raise exceptions.PasswordFileNotFound(
-            "The password file could not be found!")
-
-    for name in _PASSWORD_NAMES:
-        if not passwords.get(name):
-            passwords[name] = passutils.generate_password(
-                size=_MIN_PASSWORD_SIZE)
-
-    with open(output_file, 'w') as f:
-        for name, password in passwords.items():
-            f.write("{0}={1}\n".format(name, password))
-
-    return passwords
-
 
 def bracket_ipv6(address):
     """Put a bracket around address if it is valid IPv6

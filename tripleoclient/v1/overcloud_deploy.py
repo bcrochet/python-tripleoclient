@@ -37,6 +37,7 @@ from os_cloud_config import keystone
 from os_cloud_config import keystone_pki
 from os_cloud_config.utils import clients
 from tripleo_common import update
+from tripleo_common import utils as common_utils
 
 from tripleoclient import constants
 from tripleoclient import exceptions
@@ -62,7 +63,7 @@ class DeployOvercloud(command.Command):
         if not undercloud_ceilometer_snmpd_password:
             self.log.warning("Undercloud ceilometer SNMPd password missing!")
 
-        passwords = utils.generate_overcloud_passwords(
+        passwords = common_utils.generate_overcloud_passwords(
             create_password_file=stack_is_new)
 
         ceilometer_pass = passwords['OVERCLOUD_CEILOMETER_PASSWORD']
